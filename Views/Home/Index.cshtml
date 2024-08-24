@@ -1,0 +1,153 @@
+﻿@model IndexViewModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Qr Kod yarat";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 20px;
+        }
+
+        .qr-container {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .qr-code-img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .brand-text {
+            font-family: 'Georgia', serif;
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>@ViewData["Title"]</h2>
+            <form asp-action="Index" method="post">
+                <div class="form-group">
+                    <label asp-for="Details.FirstName">First Name</label>
+                    <input asp-for="Details.FirstName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details.LastName">Last Name</label>
+                    <input asp-for="Details.LastName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details.PhoneNumber">Phone Number</label>
+                    <input asp-for="Details.PhoneNumber" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details.Email">Email</label>
+                    <input asp-for="Details.Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details.Company">Company</label>
+                    <input asp-for="Details.Company" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details.Job">Job</label>
+                    <input asp-for="Details.Job" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details.Country">Country</label>
+                    <input asp-for="Details.Country" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details.City">City</label>
+                    <input asp-for="Details.City" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details.ZIP">ZIP Code</label>
+                    <input asp-for="Details.ZIP" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details.Fax">Fax</label>
+                    <input asp-for="Details.Fax" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary">Generate QR Code</button>
+            </form>
+        </div>
+        <div class="qr-container">
+            @if (Model != null && Model.QrCode != null)
+            {
+                <div class="qr-code-container">
+                    <h3>QR Kod:</h3>
+                    <img src="data:image/png;base64,@Model.QrCode" alt="QR Code" class="qr-code-img" />
+                    <a href="data:image/png;base64,@Model.QrCode" download="QRCode.png" class="btn btn-success">Download QR Code</a>
+                    <br />
+                    <br />
+                    <a href="https://www.linkedin.com/in/yaghmur-novruzlu-50779a21a/" class="brand-text">By Yagmur Novruzov</a>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
